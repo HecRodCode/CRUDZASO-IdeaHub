@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    height: 100vh;              /* 100% altura viewport */
+    display: flex;
+    justify-content: center;    /* Centrar horizontal */
+    align-items: center;        /* Centrar vertical */
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4); /* Fondo bonito */
+    font-family: Arial, sans-serif;
+}
+.btnFiltroCategorias{
+    position: absolute;
+    top: 60px;          /* 20px desde arriba */
+    left: 150px;        /* 20px desde derecha */
+    padding: 12px 24px;
+    background: #090909;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+.btnFiltroAutor{
+    position: absolute;
+    top: 60px;          /* 20px desde arriba */
+    left: 300px;        /* 20px desde derecha */
+    padding: 12px 24px;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+
+}
+
+.btnCrearIdea{
+    position: absolute;
+    top: 60px;          /* 20px desde arriba */
+    right: 150px;        /* 20px desde derecha */
+    padding: 12px 24px;
+    background: #4841ff;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.boton-derecha:hover {
+    background: #ff3742;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(255, 71, 87, 0.5);
+}
+
+.containerIdeas {
+    /* 80% del ancho viewport, centrado (10% cada lado) */
+    width: 80vw;                /* 80% ancho pantalla */
+    max-width: 80%;           /* Límite máximo */
+    height: 400px;              /* Altura fija (o 80vh para cuadrado perfecto) */
+    
+    /* Centrado horizontal perfecto */
+    margin: 10% auto;          /* 10% arriba/abajo del viewport, auto izquierda/derecha */
+    
+    border: 5px solid #000000;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
