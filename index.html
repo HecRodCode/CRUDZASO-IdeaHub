@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <!-- GLOBAL STYLES -->
+    <link rel="stylesheet" href="./css/styles.css" />
+    <!-- PAGE STYLES -->
+    <link rel="stylesheet" href="./css/login.css" />
+  </head>
+
+  <body>
+    <main class="auth-layout">
+      <!-- LEFT PANEL -->
+      <section class="auth-left">
+        <div class="auth-card">
+          <h1 class="auth-brand">IdeaHub</h1>
+          <!-- TABS -->
+          <div class="auth-tabs">
+            <button class="tab active" data-view="login">Login</button>
+            <button class="tab" data-view="signup">Sign Up</button>
+          </div>
+
+          <!-- LOGIN -->
+          <form id="login-form" class="auth-view active">
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              class="inputs"
+              required
+            />
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              class="inputs"
+              required
+            />
+
+            <button type="submit" class="btn-primary">Enter</button>
+            <div id="login-message"></div>
+          </form>
+
+          <!-- SIGN UP -->
+          <form id="signup-form" class="auth-view">
+            <input type="text" placeholder="Name" class="inputs" required />
+            <input type="email" placeholder="Email" class="inputs" required />
+
+            <div class="password-row">
+              <input
+                type="password"
+                placeholder="Password"
+                class="inputs"
+                required
+              />
+              <input
+                type="password"
+                placeholder="Confirm"
+                class="inputs"
+                required
+              />
+            </div>
+
+            <button type="submit" class="btn-primary">Create account</button>
+          </form>
+        </div>
+
+        <div class="auth-social-group">
+          <button type="button" class="btn-social">
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+            />
+            Google
+          </button>
+          <button type="button" class="btn-social">
+            <img
+              src="https://www.svgrepo.com/show/475647/facebook-color.svg"
+              alt="Facebook"
+            />
+            Facebook
+          </button>
+        </div>
+      </section>
+
+      <section class="auth-right">
+        <svg
+          class="auth-wave"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d="M0,0 L0,100 L15,100 C40,75 40,25 15,0 Z" fill="white" />
+        </svg>
+
+        <div class="auth-right-content">
+          <div class="auth-info-box">
+            <span class="auth-badge">✨ New: IdeaHub v2.0</span>
+            <h2>Focus on the idea,<br />we handle the rest.</h2>
+            <p>
+              Join +2,000 developers building the future of collaborative
+              workspaces.
+            </p>
+          </div>
+
+          <div class="auth-image-container">
+            <img
+              src="./assets/image/auth-illustration.svg"
+              alt="App Dashboard Preview"
+              class="auth-image"
+            />
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- JS -->
+    <script type="module" src="./js/auth.js"></script>
+    <script src="./js/auth-ui.js"></script>
+  </body>
+</html>
