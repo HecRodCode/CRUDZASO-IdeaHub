@@ -69,14 +69,13 @@
     /* 80% del ancho viewport, centrado (10% cada lado) */
     width: 80vw;                /* 80% ancho pantalla */
     max-width: 80%;           /* Límite máximo */
-    height: 400px;              /* Altura fija (o 80vh para cuadrado perfecto) */
+    height: auto;              /* Altura fija (o 80vh para cuadrado perfecto) */
     
     /* Centrado horizontal perfecto */
     margin: 10% auto;          /* 10% arriba/abajo del viewport, auto izquierda/derecha */
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
-    border: 5px solid #000000;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.95);
     display: flex;
@@ -88,25 +87,27 @@
     font-size: 1.2rem;
     font-weight: bold;
 }
-.nueva-card {
+.nueva-idea {
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: white;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease;
-    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    min-height: 150px;               /* Altura mínima uniforme */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-.nueva-card:hover {
+.nueva-idea:hover {
     transform: translateY(-5px);
 }
 
-.nueva-card h4 {
+.nueva-idea h4 {
     margin: 0 0 10px 0;
     font-size: 1.1rem;
 }
 
-.nueva-card p {
+.nueva-idea p {
     margin: 5px 0;
     opacity: 0.9;
     font-size: 0.95rem;

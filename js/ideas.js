@@ -21,13 +21,23 @@ function btnGuardarIdea(){
  const contenedorIdeas = document.getElementById('containerIdeas');
 
     const idea = document.createElement('div');
-    idea.className = 'nueva-card'
+    idea.className = 'nueva-idea'
 
     idea.innerHTML = `
-        <button class="btn-eliminar" onclick="eliminarCard(this)">×</button>
+        <button class="btn-eliminar" onclick="eliminarIdea(this)">×</button>
         <h4 id="autor-card">${autor.value}</h4>
-        <p id="hasgtag-card"><strong>Email:</strong> ${hashtag.value}</p>
-        <p id="text-card"><strong>Desc:</strong> ${text.value}</p>
+        <p id="hashtag-card"><strong>#:</strong> ${hashtag.value}</p>
+        <p id="text-card"> ${text.value}</p>
     `;
     contenedorIdeas.append(idea)
+}
+
+function eliminarIdea(btn){
+    const idea = btn.closest('.nueva-idea');
+    
+    if (!idea) return console.error('No idea encontrada');
+    
+    const autor = idea.querySelector('#autor-card').textContent;
+    idea.remove()
+
 }
