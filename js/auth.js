@@ -7,7 +7,7 @@ if (loginForm) {
 }
 
 // Login
-function loginUser(e) {
+export function loginUser(e) {
   e.preventDefault();
 
   // Select Data
