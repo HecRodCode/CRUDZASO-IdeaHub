@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/ideas.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="cuadroBoottons">
+        <button class="btnCrearIdea" id="crearIdea">Crear Idea</button>
+        <button class="btnFiltroCategorias">Categorias</button>
+        <button class="btnFiltroAutor">Autor</button>
+    </div>
+    <div id="containerIdeas">
+        
+    </div>
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Nueva Idea</h2>
+                <button class="modal-close" id="cerrarModal" onclick="cerrarModal()">&times;</button>
+            </div>
+            <form id="modalForm">
+                <div class="form-group">
+                    <label for="nombre">Autor</label>
+                    <select id="categoria1" required>
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="Danna">Danna</option>
+                        <option value="Guengue">Guengue</option>
+                        <option value="Jefecito">Jefecito</option>
+                        <option value="Santiago">Santiago</option>
+                        <option value="Recursos">Recursos</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="email">Categoria</label>
+                    <select id="categoria2" required>
+                        <option value="" disabled selected>Selecciona una opción...</option>
+                        <option value="1">#1</option>
+                        <option value="2">#2</option>
+                        <option value="3">#3</option>
+                        <option value="4">#4</option>
+                        <option value="5">#5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="telefono">Idea</label>
+                    <textarea id="idea" rows="4" placeholder="Escribe aquí detalles del registro..."></textarea>
+                </div>
+                <button type="button" class="btn-submit" onclick="btnGuardarIdea()">Guardar</button>
+            </form>
+        </div>
+    </div>
+    <script src="./js/ideas.js"></script>
+</body>
+</html>
