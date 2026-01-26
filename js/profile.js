@@ -1,21 +1,16 @@
-import { email } from './auth.js';
+const session = JSON.parse(sessionStorage.getItem('currentUser'));
 
-const nameProfile =document.getElementById("nameProfile")
-const emailProfile = document.getElementById("emailProfile")
-const nameSignUp =document.getElementById("nameSignUp")
-if (nameProfile) {
-  nameProfile.textContent ="danna"
+if(!session){
+  window.location.href = 'index.html';
 }
-if(emailProfile){
-    emailProfile.textContent= email
+//Info the user
+const nameUser =document.getElementById("nameProfile")
+if(nameUser){
+nameUser.textContent = `Usuario: ${session.name}`
 }
-
-
-
-/*document.addEventListener("DOMContentLoaded", ()=>{
-const textProfile=document.getElementById("textProfile")
-const savedEmail = localStorage.getItem("email");
-if (textProfile && savedEmail) {
-  textProfile.innerHTML = `<p>${savedEmail}</p>`;
+//info the email
+const emailUser =document.getElementById("emailProfile")
+if(emailUser){
+emailUser.textContent = `Email: ${session.email}`
 }
-});*/
+console.log(session)

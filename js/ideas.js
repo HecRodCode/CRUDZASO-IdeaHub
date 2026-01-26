@@ -3,24 +3,26 @@ abrirModalBtn.addEventListener('click',() => {
     modalOverlay.classList.add('active')
 
  });
+ let contadorIdeas=0;
 function cerrarModal() {
   const overlay = document.getElementById('modalOverlay');
   overlay.classList.remove('active');
 }
 
-function btnGuardarIdea(){
+
+  function btnGuardarIdea(){
     const autor = document.getElementById('categoria1');
     const hashtag = document.getElementById('categoria2');
     const text = document.getElementById('idea');
     console.log(autor.value)
     console.log(hashtag.value)
     console.log(text.value)
-    
 
 
- const contenedorIdeas = document.getElementById('containerIdeas');
 
-    const idea = document.createElement('div');
+     const contenedorIdeas = document.getElementById('containerIdeas');
+
+ const idea = document.createElement('div');
     idea.className = 'nueva-idea'
 
     idea.innerHTML = `
@@ -30,6 +32,8 @@ function btnGuardarIdea(){
         <p id="text-card"> ${text.value}</p>
     `;
     contenedorIdeas.append(idea)
+    contadorIdeas++;
+    actualizarContador();
 }
 
 function eliminarIdea(btn){
@@ -39,5 +43,25 @@ function eliminarIdea(btn){
     
     const autor = idea.querySelector('#autor-card').textContent;
     idea.remove()
+    contadorIdeas--;
+    actualizarContador();
 
 }
+
+function actualizarContador(){
+    document.getElementById("totalIdeas").textContent =`Ideas totales: ${contadorIdeas}`;
+
+}
+//PENDIENTE EN HACER LA LISTA DE IDEAS
+function listasIdeas(){
+    const text = document.getElementById('idea');
+    const list =document.createElement('li');
+    const listIdeas=document.getElementById("listIdeas")
+    list.textContent =`Listas: ${text.value}`;
+
+    listIdeas.append(list);
+}
+    
+
+
+
