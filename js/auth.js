@@ -1,5 +1,6 @@
 import * as Storage from './storage.js';
 
+
 // Login
 const registerForm = document.getElementById('signup-form');
 
@@ -11,7 +12,7 @@ function registerUser(e) {
   e.preventDefault();
 
   // Select Data
-  const userName = document.getElementById('nameUser').value.trim();
+  const userName = document.getElementById('nameSignUp').value.trim();
   const email = document.getElementById('email-sign').value.trim();
   const password = document.getElementById('password-sign').value;
   const confirmPassword = document.getElementById('confirm-password').value;
@@ -72,7 +73,8 @@ if (loginForm) {
   loginForm.addEventListener('submit', loginUser);
 }
 
-function loginUser(e) {
+// Login
+export function loginUser(e) {
   e.preventDefault();
 
   // Select Data
