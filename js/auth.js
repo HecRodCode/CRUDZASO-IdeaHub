@@ -1,6 +1,5 @@
 import * as Storage from './storage.js';
 
-
 // Login
 const registerForm = document.getElementById('signup-form');
 
@@ -37,22 +36,12 @@ function registerUser(e) {
     return;
   }
 
-  // Hashtags
-  const defaultHashtags = [
-    'programacion',
-    'salud',
-    'videojuegos',
-    'series_o_peliculas',
-    'ideas_creativas',
-  ];
-
   // New User
   const newUser = {
     id: crypto.randomUUID(),
     name: userName,
     email,
     password,
-    hashtags: [...defaultHashtags],
   };
 
   Storage.saveUser(newUser);
