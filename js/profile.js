@@ -6,11 +6,28 @@ if(!session){
 //Info the user
 const nameUser =document.getElementById("nameProfile")
 if(nameUser){
-nameUser.textContent = `Usuario: ${session.name}`
+nameUser.textContent = session.name
 }
 //info the email
 const emailUser =document.getElementById("emailProfile")
 if(emailUser){
-emailUser.textContent = `Email: ${session.email}`
+emailUser.textContent = session.email
 }
 console.log(session)
+
+//IDEAS 
+const ideasCard =JSON.parse(localStorage.getItem('ideas'));
+if(!ideasCard.length ===0){
+  window.location.href="ideas.html"
+}
+//total de ideas
+const contIdeas = document.getElementById("totalIdeas")
+contIdeas.textContent= `Total de ideas: ${ideasCard.length}`
+
+//lista de ideas
+const listIdeas = document.getElementById("listIdeas");
+ideasCard.forEach(idea => {
+  const list =document.createElement('li');
+  list.textContent =`${idea.autor} - #${idea.hashtag}: ${idea.texto}`;
+  listIdeas.append(list);
+});
