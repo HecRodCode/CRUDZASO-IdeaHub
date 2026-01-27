@@ -24,10 +24,12 @@ if(!ideasCard.length ===0){
 const contIdeas = document.getElementById("totalIdeas")
 contIdeas.textContent= `Total de ideas: ${ideasCard.length}`
 
+
 //lista de ideas
 const listIdeas = document.getElementById("listIdeas");
 ideasCard.forEach(idea => {
   const list =document.createElement('li');
-  list.textContent =`${idea.autor} - #${idea.hashtag}: ${idea.texto}`;
+  list.textContent =`${idea.author} - #${idea.hashtags}: ${idea.body}`;
+  list.style.listStyle="none"
   listIdeas.append(list);
 });
