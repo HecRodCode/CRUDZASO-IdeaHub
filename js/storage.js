@@ -1,7 +1,15 @@
-// Save a user in localStorage
+/*=== USERS === */
+// Save a user (create or update)
 export function saveUser(user) {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
-  users.push(user);
+  const users = getUsers();
+  const index = users.findIndex((u) => u.id === user.id);
+
+  if (index !== -1) {
+    users[index] = user; // update
+  } else {
+    users.push(user); // create
+  }
+
   localStorage.setItem('users', JSON.stringify(users));
 }
 
@@ -20,12 +28,31 @@ export function getCurrentUser() {
   return JSON.parse(sessionStorage.getItem('currentUser'));
 }
 
-// Find user in localStorage
+// Find user by credentials
 export function findUser(email, password) {
-  const users = JSON.parse(localStorage.getItem('users')) || [];
+  const users = getUsers();
 
   return users.find(
     (u) =>
       u.email.toLowerCase() === email.toLowerCase() && u.password === password
   );
+}
+
+/* === IDEAS === */
+
+// Get all ideas
+export function getIdeas() {
+  return JSON.parse(localStorage.getItem('ideas')) || [];
+}
+
+// Save all ideas (overwrite)
+export function saveIdeas(ideas) {
+  localStorage.setItem('ideas', JSON.stringify(ideas));
+}
+
+// Save a single idea
+export function saveIdea(idea) {
+  const ideas = getIdeas();
+  ideas.unshift(idea);
+  saveIdeas(ideas);
 }

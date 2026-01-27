@@ -23,6 +23,7 @@ function cerrarModal() {
   overlay.classList.remove('active');
 }
 
+const currentUser = JSON.parse(storedUser);
 
  function pintarIdea(ideaData, index) {
   const contenedorIdeas = document.getElementById('containerIdeas');
@@ -98,4 +99,121 @@ function eliminarIdea(btn) {
     `Ideas totales: ${contadorIdeas}`;
 }
 
+closeEditModalBtn?.addEventListener('click', closeEditModal);
+cancelEditBtn?.addEventListener('click', closeEditModal);
 
+saveEditBtn?.addEventListener('click', () => {
+  if (!ideaToEdit) return;
+
+  const newBody = editBodyTextarea?.value.trim();
+
+  if (!newBody) {
+    alert('The idea cannot be empty');
+    return;
+  }
+
+  const ideas = getIdeas();
+  const idea = ideas.find((i) => i.id === ideaToEdit);
+
+  if (idea) {
+    idea.body = newBody;
+    saveIdeas(ideas);
+  }
+
+  closeEditModal();
+  renderIdeas(getActiveTab());
+});
+
+/* === LIKE / BOOKMARK === */
+function toggleLike(id) {
+  const ideas = getIdeas();
+  const idea = ideas.find((i) => i.id === id);
+  if (!idea) return;
+
+  if (!idea.likes) idea.likes = [];
+
+  const uid = currentUser.id;
+  const index = idea.likes.indexOf(uid);
+
+  if (index > -1) {
+    idea.likes.splice(index, 1);
+  } else {
+    idea.likes.push(uid);
+  }
+
+  saveIdeas(ideas);
+  renderIdeas(getActiveTab());
+}
+
+function toggleBookmark(id) {
+  const ideas = getIdeas();
+  const idea = ideas.find((i) => i.id === id);
+  if (!idea) return;
+
+  if (!idea.bookmarks) idea.bookmarks = [];
+
+  const uid = currentUser.id;
+  const index = idea.bookmarks.indexOf(uid);
+
+  if (index > -1) {
+    idea.bookmarks.splice(index, 1);
+  } else {
+    idea.bookmarks.push(uid);
+  }
+
+  saveIdeas(ideas);
+  renderIdeas(getActiveTab());
+}
+
+/* === FEED TABS === */
+feedTabs.forEach((tab) => {
+  tab.addEventListener('click', () => {
+    feedTabs.forEach((t) => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderIdeas(tab.dataset.view);
+  });
+});
+
+/* === FAVORITES BUTTON === */
+favoritesBtn?.addEventListener('click', () => {
+  feedTabs.forEach((t) => t.classList.remove('active'));
+  tabLikes?.classList.add('active');
+  renderIdeas('likes');
+});
+
+/* === BOOKMARKS MODAL === */
+bookmarksBtn?.addEventListener('click', () => {
+  const ideas = getIdeas().filter((i) => {
+    return i.bookmarks && i.bookmarks.includes(currentUser.id);
+  });
+
+  if (!bookmarksContainer) return;
+
+  bookmarksContainer.innerHTML = '';
+
+  if (ideas.length === 0) {
+    bookmarksContainer.innerHTML = '<p>No bookmarks yet</p>';
+  } else {
+    ideas.forEach((idea) => {
+      const post = document.createElement('article');
+      post.className = 'post';
+      post.innerHTML = `
+        <small>${idea.author || 'Anonymous'}</small>
+        <p>${idea.body || ''}</p>
+        <div class="post-tags">
+          ${(idea.hashtags || []).map((t) => `<span>${t}</span>`).join('')}
+        </div>
+      `;
+      bookmarksContainer.appendChild(post);
+    });
+  }
+
+  bookmarksModal?.classList.remove('hidden');
+});
+
+closeBookmarksBtn?.addEventListener('click', () => {
+  bookmarksModal?.classList.add('hidden');
+});
+
+/* === INIT === */
+renderIdeas('all');
