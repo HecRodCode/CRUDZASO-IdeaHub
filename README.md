@@ -1,6 +1,6 @@
 # MemoStream
 
---
+---
 
 | Name             | GitHub                              |
 | ---------------- | ----------------------------------- |
@@ -10,7 +10,7 @@
 | Michelle Oyola   | https://github.com/Michelle22062005 |
 | Juan Eduardo     | https://github.com/HeroLeni         |
 
---
+---
 
 ## About The Project
 
@@ -132,7 +132,7 @@ This project was developed by the CRUDZASO team, with each member specializing i
 
 | Member   | Role      | Branches                                 | Files Modified                                                                                            | Responsibilities                                                  |
 | -------- | --------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| Héctor   | Leader    | `feature/login`<br>`develop`             | `index.html`<br>`register.html`<br>`js/auth.js`<br>`js/storage.js`<br>`css/login.css`<br>`css/styles.css` | Login and registration flow<br>Session management<br>PRs & Merges |
+| Héctor   | Leader    | `feature/login`<br>`develop`             | `index.html`<br>`js/auth.js`<br>`js/storage.js`<br>`css/login.css`<br>`css/styles.css` | Login and registration flow<br>Session management<br>PRs & Merges |
 | Camilo   | Developer | `feature/ideas-crud`                     | `ideas.html`<br>`js/ideas.js`<br>`js/storage.js`                                                          | CRUD operations<br>Author validation                              |
 | Santiago | Developer | `feature/filters`                        | `ideas.html`<br>`js/ui.js`                                                                                | Username filter<br>Hashtag filter                                 |
 | Michelle | Developer | `feature/profile`<br>`feature/ui-layout` | `profile.html`<br>`js/profile.js`<br>`js/ui.js`<br>`css/profile.css`<br>`css/styles.css`                  | User profile<br>DOM rendering<br>UI layout                        |
