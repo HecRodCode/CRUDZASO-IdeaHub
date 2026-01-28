@@ -1,0 +1,191 @@
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/ideas.css" />
+    <link rel="icon" type="image/x-icon" href="./assets/image/logo.jpg" />
+    <title>Home</title>
+  </head>
+  <body>
+    <!-- === HEADER === -->
+    <header class="header-container">
+      <div class="user-greeting">
+        <h2 id="greeting">Hello, user</h2>
+      </div>
+
+      <div class="header-search">
+        <input
+          type="text"
+          placeholder="Search ideas..."
+          class="search-input header-search-input"
+        />
+      </div>
+
+      <nav class="nav-actions">
+        <a class="profile-action" href="#">
+          <img src="./assets/image/icons/dark-mode.png" class="social-icon" />
+        </a>
+      </nav>
+    </header>
+
+    <!-- === MAIN CONTENT === -->
+    <main class="layout">
+      <!-- === LEFT COLUMN === -->
+      <aside class="sidebar-left">
+        <button class="create-idea-btn" id="open-idea-modal">
+          + Create Idea
+        </button>
+
+        <!-- === CREATE IDEA MODAL === -->
+        <div class="modal hidden" id="idea-modal">
+          <div class="modal-content-create">
+            <div class="header-modal">
+              <h3>Create Idea</h3>
+              <button class="modal-close" id="close-idea-modal">×</button>
+            </div>
+
+            <textarea
+              id="idea-body"
+              placeholder="Write your idea..."
+              required
+            ></textarea>
+
+            <input type="text" id="idea-hashtags" placeholder="#Example..." />
+
+            <div class="modal-actions">
+              <button id="cancel-idea">Cancel</button>
+              <button id="publish-idea">Publish</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-section">
+          <div class="filter-container">
+            <h4 class="filter-name">Search by username</h4>
+            <input type="text" placeholder="User" />
+          </div>
+        </div>
+
+        <div class="filter-section">
+          <div class="filter-container">
+            <h4 class="filter-name">Hashtags</h4>
+
+            <div class="hashtag-input-container">
+              <input
+                type="text"
+                placeholder="Add hashtag"
+                class="hashtag-input"
+              />
+            </div>
+
+            <ul class="filter-list hashtag-filters"></ul>
+          </div>
+        </div>
+      </aside>
+
+      <!-- === CENTER COLUMN / FEED === -->
+      <section class="feed">
+        <h3 class="column-name">MemoStream</h3>
+
+        <!-- FEED TABS -->
+        <div class="feed-tabs">
+          <button class="feed-tab active" data-view="all" id="tab-all">
+            Explore
+          </button>
+          <button class="feed-tab" data-view="likes" id="tab-likes">
+            Likes
+          </button>
+        </div>
+
+        <!-- POSTS -->
+        <div class="posts-container" id="posts-container"></div>
+      </section>
+
+      <!-- === RIGHT COLUMN === -->
+      <aside class="sidebar-right">
+        <a class="profile-action" href="./profile.html">
+          <img src="./assets/image/icons/user.png" class="social-icon" />
+          Profile
+        </a>
+
+        <!-- FAVORITES → activa tab My likes -->
+        <button class="sidebar-action" id="open-favorites">
+          <img src="./assets/image/icons/favorite.png" class="social-icon" />
+          Favorites
+        </button>
+
+        <!-- BOOKMARKS → abre modal -->
+        <button class="sidebar-action" id="open-bookmarks">
+          <img src="./assets/image/icons/bookmark.png" class="social-icon" />
+          Bookmarks
+        </button>
+
+        <a class="logOut-action" href="./index.html">
+          <img src="./assets/image/icons/logOut.png" class="social-icon" />
+          Log Out
+        </a>
+      </aside>
+    </main>
+
+    <!-- === BOOKMARKS MODAL === -->
+    <div class="modal hidden" id="bookmarks-modal">
+      <div class="modal-content bookmarks-modal-content">
+        <div class="header-modal">
+          <h3>Saved Ideas</h3>
+          <button class="modal-close" id="close-bookmarks-modal">×</button>
+        </div>
+
+        <div class="posts-container" id="bookmarks-container">
+          <!-- ideas guardadas render aquí -->
+        </div>
+      </div>
+    </div>
+
+    <!-- === DELETE CONFIRMATION MODAL === -->
+    <div class="modal hidden" id="delete-modal">
+      <div class="modal-content small">
+        <div class="header-modal">
+          <h3>Delete Idea</h3>
+          <button class="modal-close" id="close-delete-modal">×</button>
+        </div>
+
+        <p style="margin: 1.5rem 0; text-align: center">
+          Are you sure you want to delete this idea? This action cannot be
+          undone.
+        </p>
+
+        <div class="modal-actions">
+          <button id="cancel-delete">Cancel</button>
+          <button id="confirm-delete" class="delete-confirm-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- === EDIT MODAL === -->
+    <div class="modal hidden" id="edit-modal">
+      <div class="modal-content">
+        <div class="header-modal">
+          <h3>Edit Idea</h3>
+          <button class="modal-close" id="close-edit-modal">×</button>
+        </div>
+
+        <textarea
+          id="edit-body"
+          placeholder="Edit your idea..."
+          required
+        ></textarea>
+
+        <div class="modal-actions">
+          <button id="cancel-edit">Cancel</button>
+          <button id="save-edit">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/ideas.js"></script>
+  </body>
+</html>
+
