@@ -5,8 +5,7 @@ const IDEAS_KEY = 'ideas';
 const storedUser = sessionStorage.getItem('currentUser');
 
 if (!storedUser) {
-  // No hay sesión → fuera
-  window.location.href = './index.html'; // o login.html
+  window.location.href = './index.html';
   throw new Error('User not authenticated');
 }
 
@@ -49,13 +48,23 @@ const feedTabs = document.querySelectorAll('.feed-tab');
 const favoritesBtn = document.getElementById('open-favorites');
 const bookmarksBtn = document.getElementById('open-bookmarks');
 
+// FILTER ELEMENTS
+const usernameFilterInput = document.querySelector(
+  '.filter-container input[placeholder="User"]'
+);
+const hashtagFilterInput = document.querySelector('.hashtag-input');
+const hashtagFiltersList = document.querySelector('.hashtag-filters');
+
 let ideaToDelete = null;
 let ideaToEdit = null;
+let activeFilters = {
+  username: '',
+  hashtags: [],
+};
 
 // HELPERS
 function getIdeas() {
   const ideas = JSON.parse(localStorage.getItem(IDEAS_KEY)) || [];
-  // Migrar ideas antiguas sin authorId
   return ideas.map((idea) => {
     if (!idea.authorId && idea.author === currentUser.name) {
       return { ...idea, authorId: currentUser.id };
@@ -70,6 +79,93 @@ function saveIdeas(ideas) {
 
 function getActiveTab() {
   return document.querySelector('.feed-tab.active')?.dataset.view || 'all';
+}
+
+/* === FILTER FUNCTIONS === */
+function addHashtagFilter(hashtag) {
+  const cleanHashtag = hashtag.trim().toLowerCase();
+  if (!cleanHashtag) return;
+
+  const formattedHashtag = cleanHashtag.startsWith('#')
+    ? cleanHashtag
+    : `#${cleanHashtag}`;
+
+  if (activeFilters.hashtags.includes(formattedHashtag)) return;
+
+  activeFilters.hashtags.push(formattedHashtag);
+  renderHashtagFilters();
+  renderIdeas(getActiveTab());
+}
+
+function removeHashtagFilter(hashtag) {
+  activeFilters.hashtags = activeFilters.hashtags.filter((h) => h !== hashtag);
+  renderHashtagFilters();
+  renderIdeas(getActiveTab());
+}
+
+function renderHashtagFilters() {
+  if (!hashtagFiltersList) return;
+
+  hashtagFiltersList.innerHTML = '';
+
+  activeFilters.hashtags.forEach((hashtag) => {
+    const li = document.createElement('li');
+    li.className = 'filter-item';
+    li.innerHTML = `
+      <span>${hashtag}</span>
+      <button class="remove-filter" data-hashtag="${hashtag}">×</button>
+    `;
+
+    li.querySelector('.remove-filter').onclick = () =>
+      removeHashtagFilter(hashtag);
+    hashtagFiltersList.appendChild(li);
+  });
+}
+
+function applyFilters(ideas) {
+  let filtered = ideas;
+
+  // Filter username
+  if (activeFilters.username) {
+    const searchUsername = activeFilters.username.toLowerCase();
+    filtered = filtered.filter(
+      (idea) =>
+        idea.author && idea.author.toLowerCase().includes(searchUsername)
+    );
+  }
+
+  // Filter hashtags
+  if (activeFilters.hashtags.length > 0) {
+    filtered = filtered.filter((idea) => {
+      if (!idea.hashtags || idea.hashtags.length === 0) return false;
+
+      const ideaHashtagsLower = idea.hashtags.map((h) => h.toLowerCase());
+      return activeFilters.hashtags.some((filterHashtag) =>
+        ideaHashtagsLower.includes(filterHashtag.toLowerCase())
+      );
+    });
+  }
+
+  return filtered;
+}
+
+// USERNAME FILTER INPUT
+if (usernameFilterInput) {
+  usernameFilterInput.addEventListener('input', (e) => {
+    activeFilters.username = e.target.value.trim();
+    renderIdeas(getActiveTab());
+  });
+}
+
+// HASHTAG FILTER INPUT
+if (hashtagFilterInput) {
+  hashtagFilterInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addHashtagFilter(hashtagFilterInput.value);
+      hashtagFilterInput.value = '';
+    }
+  });
 }
 
 // MODAL HANDLERS
@@ -147,14 +243,22 @@ function renderIdeas(view = 'all') {
 
   let filtered = ideas;
 
+  // Aplicar filtro de tab (all o likes)
   if (view === 'likes') {
-    filtered = ideas.filter((idea) => {
+    filtered = filtered.filter((idea) => {
       return idea.likes && idea.likes.includes(currentUser.id);
     });
   }
 
+  // Aplicar filtros de username y hashtags
+  filtered = applyFilters(filtered);
+
   if (filtered.length === 0) {
-    postsContainer.innerHTML = "<p style='opacity:.6'>No ideas yet</p>";
+    const noResultsMsg =
+      activeFilters.username || activeFilters.hashtags.length > 0
+        ? 'No ideas match your filters'
+        : 'No ideas yet';
+    postsContainer.innerHTML = `<p style='opacity:.6'>${noResultsMsg}</p>`;
     return;
   }
 
@@ -169,7 +273,6 @@ function renderIdeas(view = 'all') {
     const hasBookmarked = idea.bookmarks.includes(currentUser.id);
     const isOwner = idea.authorId && idea.authorId === currentUser.id;
 
-    // === POSTS ===
     article.innerHTML = `
       <div class="post-header">
         <small>${idea.author || 'Anonymous'}</small>
